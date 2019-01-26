@@ -1,4 +1,5 @@
 import React from 'react';
+import EventPage from './pages/EventPage'
 
 const timeout = ms => new Promise(res => setTimeout(res, ms));
 
@@ -15,12 +16,6 @@ const Page1 = ({onSubmit, filters, categories}) => <div>
     {JSON.stringify(categories)}
 </div>
 
-const Page2 = ({event, getNext}) => <div>
-    {JSON.stringify(event)}
-
-    <button onClick={getNext}>GetNext</button>
-</div>
-
 export default class Router extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -34,12 +29,15 @@ export default class Router extends React.PureComponent {
             availableCategories: [],
             
             filters: [],
-            categories: []
+            categories: [],
+            
+            eventOffset: 0,
+            events: []
         }
     }
 
     fetchFilters = async () => {
-        await timeout(2000);
+        await timeout(1000);
         return [{
             id: 1,
             name: "date",
@@ -53,7 +51,7 @@ export default class Router extends React.PureComponent {
     }
 
     fetchCategories = async () => {
-        await timeout(2000);
+        await timeout(1000);
         return [{
             id: 1,
             name: "value",
@@ -82,9 +80,13 @@ export default class Router extends React.PureComponent {
     }
 
     postSearchParams = async ({categories, filters}) => {
-        await timeout(2000);
+        await timeout(1000);
         return [{
-
+            name: 'Конно спортивный центр',
+            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis voluptates vel corporis rem consequuntur eaque dignissimos dolorum ratione quae inventore? Deleniti ipsa libero provident corrupti officiis aperiam perferendis reprehenderit obcaecati!",
+            redirectUrl: "google.com",
+            price: "1500p",
+            imageUrl: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
         }];
     }
 
@@ -97,7 +99,7 @@ export default class Router extends React.PureComponent {
             filters
         })
 
-        const events = await this.postSearchParams({})
+        const events = await this.postSearchParams({categories, filters})
 
         this.setState({
             ...this.state,
@@ -107,7 +109,7 @@ export default class Router extends React.PureComponent {
     }
 
     getNextEvent = () => {
-        
+        this.setState({...this.state, eventOffset: this.state.eventOffset+1})
     }
 
     render() {
@@ -122,9 +124,9 @@ export default class Router extends React.PureComponent {
                 </Loader>
             case 'PAGE_2':
                 return <Loader isLoading={this.state.isLoadingEvents}>
-                    <Page2 
-                        event = {{}}
-                        getNext = {()=>{}}
+                    <EventPage 
+                        {...this.state.events[this.state.eventOffset]}
+                        getNext = {this.getNextEvent}
                     />
                 </Loader>
             default:
