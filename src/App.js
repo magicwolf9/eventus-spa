@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import EventSearchPage from './pages/EventSearchPage'
+import Router from './Router'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <EventSearchPage/>
-      </div>
+        <Router />
     );
   }
 }
