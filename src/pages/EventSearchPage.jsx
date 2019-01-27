@@ -12,53 +12,31 @@ const EventCategoriesHolder = styled.div`
 
 export default class EventSearchPage extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            activeCategories: []
+        };
+    }
+
     render() {
         let {categories, filters, onSubmit} = this.props;
-        categories = [{
-            id: '1',
-            name: 'test cat1',
-            imageUrl: 'dd'
-        }, {
-            id: '2',
-            name: 'test cat2'
-        }, {
-            id: '1',
-            name: 'test cat1',
-            imageUrl: 'dd'
-        }, {
-            id: '2',
-            name: 'test cat2'
-        }, {
-            id: '1',
-            name: 'test cat1',
-            imageUrl: 'dd'
-        }, {
-            id: '2',
-            name: 'test cat2 ggggggggggggggggggggggggggggggggggggggggggg'
-        }];
-        filters = [{
-            "group": "LOCATION",
-            "items": [{"id": 1, "name": "Москва"}, {"id": 2, "name": "Питер"}, {"id": 3, "name": "Другое"}]
-        }, {
-            "group": "DATE",
-            "items": [{"id": 1, "name": "Сегодня"}, {"id": 2, "name": "Завтра"}, {
-                "id": 3,
-                "name": "1 неделя"
-            }, {"id": 4, "name": "2 недели"}]
-        }, {
-            "group": "PRICE",
-            "items": [{"id": 1, "name": "до 500р"}, {"id": 2, "name": "до 1000р"}, {
-                "id": 3,
-                "name": "до 3000р"
-            }, {"id": 4, "name": "от 3000р"}]
-        }];
         return <div>
             <EventCategoriesHolder>
                 {categories.map((category, ind) => {
-                    return <EventCategory category={category} id={ind}/>
+                    return <EventCategory selected={this.state.activeCategories.find((id) => id === category.id)} onClick={() => {
+                        let activeCategories = this.state.activeCategories;
+                        if (activeCategories.find((id) => id === category.id)) {
+                            activeCategories = activeCategories.filter(id => id !== category.id)
+                        } else {
+                            activeCategories.push(category.id);
+                        }
+                        this.setState({activeCategories})
+                    }} category={category} key={ind}/>
                 })}
             </EventCategoriesHolder>
-            <FloatingSubmitMenu filters={filters} onSubmit={onSubmit}/>
+            <FloatingSubmitMenu filters={filters} onSubmit={(filters) => onSubmit(this.state.activeCategories, filters)}/>
         </div>
     }
 }

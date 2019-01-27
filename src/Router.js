@@ -62,14 +62,14 @@ export default class Router extends React.PureComponent {
         }];
     }
 
-    onSubmitForm = async ({categories, filters}) => {
+    onSubmitForm = async (categories, filters) => {
         this.setState({
             page: "PAGE_2",
             isLoadingEvents: true,
             categories,
             filters
         })
-
+        console.log(categories, filters)
         const events = await this.postSearchParams({categories, filters})
 
         this.setState({

@@ -24,9 +24,10 @@ export default class EventCategory extends React.Component {
 
     render() {
         const {id, name, imageUrl = ''} = this.props.category;
-        return <Container image={imageUrl}>
+        const {selected, onClick} = this.props;
+        return <Container onClick={onClick} image={imageUrl}>
             {id}
-            {imageUrl}
+            {selected ? 'ВЫБРАНО' : 'НЕ ВЫБРАНО'}
             <TextBoundary>
                 <ScaleText>
                     {name}
