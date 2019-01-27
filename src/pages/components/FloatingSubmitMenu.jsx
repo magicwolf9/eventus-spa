@@ -8,7 +8,7 @@ const Container = styled.div`
     bottom: 10px;
     left: 4%;
     background: #fff;
-    border: 2px solid #FF6B7E;
+    border: 2px solid #6800D8;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -37,11 +37,11 @@ const FilterVariantsGroup = styled.div`
 const FilterVariantButton = styled.div`
     height: 25px;
     border-radius: 8px;
-    border: solid 2px #FF6B7E;
+    border: solid 2px #6800D8;
     padding: 3px 15px 0 15px;
     margin: 2px 2px;
-    background: ${(props) => props.selected? '#FF6B7E': 'transparent'};
-    color: ${(props) => props.selected? '#FFF': '#FF6B7E'};
+    background: ${(props) => props.selected? '#6800D8': 'transparent'};
+    color: ${(props) => props.selected? '#FFF': '#6800D8'};
 `;
 
 const SubmitButton = styled.button`
@@ -49,12 +49,13 @@ const SubmitButton = styled.button`
     margin-right: 25px;
     outline: none;
 
-    background-color: #FF6B7E;
+    background-color: #6800D8;
     color: #eee;
     border-radius: 8px;
     border: none;
     font-size: 1.1rem;
     font-weight: 500;
+
     &:hover, &:active, &:focus {
         background-color: #E5445A;
     }

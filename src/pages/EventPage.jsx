@@ -173,7 +173,7 @@ const ConfirmPopup = ({isActive, className, payUrl, togglePopup}) => <div classN
             Оплатить:
         </PopupTitle>
         <PopupContentHolder>
-        <PopupButton href={payUrl}>Перейти на страницу оплаты</PopupButton>
+            <PopupButton href={payUrl}>Перейти на страницу оплаты</PopupButton>
         </PopupContentHolder>
     </div>
 </div>

@@ -4,10 +4,8 @@ import EventSearchPage from './pages/EventSearchPage';
 import EventPage, {StyledNoneLeftPage} from './pages/EventPage'
 import Loader from './pages/components/Loader'
 
-const timeout = ms => new Promise(res => setTimeout(res, ms));
-
 const LoaderWrapper = ({isLoading, children}) => {
-    return isLoading ? <Loader />: children
+    return isLoading ? <Loader />: <React.Fragment>{children}</React.Fragment>
 }
 
 export default class Router extends React.PureComponent {
@@ -52,14 +50,16 @@ export default class Router extends React.PureComponent {
     }
 
     postSearchParams = async ({categories, filters}) => {
-        await timeout(1000);
+        // this.axios.post('/events/search/', {
+        //     categories, filters
+        // })
         return [{
             name: 'Конно спортивный центр',
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis voluptates vel corporis rem consequuntur eaque dignissimos dolorum ratione quae inventore? Deleniti ipsa libero provident corrupti officiis aperiam perferendis reprehenderit obcaecati!",
             redirectUrl: "google.com",
             price: "1500p",
             imageUrl: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
-        }];
+        }]
     }
 
     onSubmitForm = async (categories, filters) => {
@@ -69,7 +69,7 @@ export default class Router extends React.PureComponent {
             categories,
             filters
         })
-        console.log(categories, filters)
+
         const events = await this.postSearchParams({categories, filters})
 
         this.setState({
@@ -78,9 +78,7 @@ export default class Router extends React.PureComponent {
         })
     }
 
-    getNextEvent = () => {
-        this.setState({...this.state, eventOffset: this.state.eventOffset+1})
-    }
+    getNextEvent = () => this.setState({...this.state, eventOffset: this.state.eventOffset+1})
 
     onBackToPage1 = () => this.setState({page: 'PAGE_1', eventOffset: 0});
 

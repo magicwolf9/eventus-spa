@@ -8,6 +8,7 @@ const EventCategoriesHolder = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    padding-bottom: 40vh;
 `;
 
 export default class EventSearchPage extends React.Component {
