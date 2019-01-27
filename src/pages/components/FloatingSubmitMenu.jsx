@@ -93,7 +93,7 @@ export default class FloatingSubmitMenu extends React.Component {
                         {filter.items.map((item) => {
                             return <FilterVariantButton selected={this.state[filter.group] === item.id}  onClick={() => {
                                 this.setState({[filter.group]: item.id})
-                            }} id={item.id}>{item.name}</FilterVariantButton>
+                            }} key={item.id}>{item.name}</FilterVariantButton>
                         })}
                     </FilterVariantsGroup>
                 })}
