@@ -259,7 +259,7 @@ class EventPage extends React.Component {
                 payUrl={redirectUrl}
                 togglePopup = {this.closePopup}
             />
-            {description}
+            <div className="description" dangerouslySetInnerHTML={{__html: description}} />
             <ButtonContainer>
                 <BackToSearchButton onClick={backToPage1}>↜ Вернуться к поиску</BackToSearchButton>
             </ButtonContainer>
@@ -274,6 +274,12 @@ const StyledEventPage = styled(EventPage)`
 
     ${StyledCard} {
         margin-bottom: 10px;
+    }
+
+    overflow-wrap: break-word;
+
+    a {
+        color: #FF6B7E;
     }
 `
 
