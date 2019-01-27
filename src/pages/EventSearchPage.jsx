@@ -21,6 +21,10 @@ export default class EventSearchPage extends React.Component {
         };
     }
 
+    componentDidMount() {
+        this.setState({activeCategories: [...this.state.activeCategories, this.props.categories[0].id]});
+    }
+
     render() {
         let {categories, filters, onSubmit} = this.props;
         return <div>

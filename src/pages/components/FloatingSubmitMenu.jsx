@@ -63,19 +63,23 @@ const SubmitButton = styled.button`
 
 export default class FloatingSubmitMenu extends React.Component {
 
+    scrollTarget;
     constructor(props) {
         super(props);
 
-        this.state = {
-            selectedFilters: []
+        this.scrollTarget = React.createRef();
+        this.state = {}
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.scrollTarget) {
+            window.scrollTo(0, this.scrollTarget.current.offsetTop);
         }
     }
 
     componentDidMount() {
 
-        const initialState = {
-            selectedFilters: {}
-        };
+        const initialState = {};
 
         this.props.filters.forEach((filter) => {
             initialState[filter.group] = filter.items[0].id
@@ -87,12 +91,12 @@ export default class FloatingSubmitMenu extends React.Component {
     render() {
         const {filters, onSubmit} = this.props;
         return <Container>
-            <Header>Я ищу что-то: </Header>
+            <Header>Фильтры: </Header>
             <Filters>
                 {filters.map((filter) => {
                     return <FilterVariantsGroup id={filter.group}>
                         {filter.items.map((item) => {
-                            return <FilterVariantButton selected={this.state[filter.group] === item.id}  onClick={() => {
+                            return <FilterVariantButton ref={this.state[filter.group] === item.id ? this.scrollTarget: null} selected={this.state[filter.group] === item.id}  onClick={() => {
                                 this.setState({[filter.group]: item.id})
                             }} key={item.id}>{item.name}</FilterVariantButton>
                         })}
