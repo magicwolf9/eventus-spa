@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from 'styled-components'
 import ScaleText from "react-scale-text";
+import checkIconFilledSvg from './assets/check-icon-filled.svg';
 import checkIconSvg from './assets/check-icon.svg'
 
 const CheckIcon = styled.div`
-    background: no-repeat url("${checkIconSvg}");
+    background: no-repeat url("${(props) => props.selected ? checkIconFilledSvg: checkIconSvg}");
     background-size: contain;
 
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
     right: 10px;
-`
+`;
 
 const Container = styled.div`
     position: relative;
@@ -34,14 +35,15 @@ const TextBoundary = styled.div`
     width: 100%;
     max-height: 40px;
     overflow-wrap: break-word;
+    color: #fff;
 `;
 
 export default class EventCategory extends React.Component {
     render() {
-        const {id, name, imageUrl = ''} = this.props.category;
+        const {name, imageUrl = ''} = this.props.category;
         const {selected, onClick} = this.props;
         return <Container onClick={onClick} imageUrl={imageUrl}>
-            {selected && <CheckIcon />}
+            {<CheckIcon selected={selected}/>}
             <TextBoundary>
                 <ScaleText>
                     {name}
