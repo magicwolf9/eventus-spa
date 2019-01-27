@@ -39,6 +39,7 @@ const FilterVariantButton = styled.div`
     padding-left: 10px;
     padding-right: 10px;
     margin: 2px 2px;
+    background: ${(props) => props.selected? '#000': '#fff'};
 `;
 
 const SubmitButton = styled.button`
@@ -46,6 +47,27 @@ const SubmitButton = styled.button`
     height: 40px;
 `;
 export default class FloatingSubmitMenu extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            selectedFilters: []
+        }
+    }
+
+    componentDidMount() {
+
+        const initialState = {
+            selectedFilters: {}
+        };
+
+        this.props.filters.forEach((filter) => {
+            initialState[filter.group] = filter.items[0].id
+        });
+
+        this.setState(initialState);
+    }
 
     render() {
         const {filters, onSubmit} = this.props;
@@ -55,12 +77,17 @@ export default class FloatingSubmitMenu extends React.Component {
                 {filters.map((filter) => {
                     return <FilterVariantsGroup id={filter.group}>
                         {filter.items.map((item) => {
-                            return <FilterVariantButton id={item.id}>{item.name}</FilterVariantButton>
+                            return <FilterVariantButton selected={this.state[filter.group] === item.id}  onClick={() => {
+                                this.setState({[filter.group]: item.id})
+                            }} id={item.id}>{item.name}</FilterVariantButton>
                         })}
                     </FilterVariantsGroup>
                 })}
             </Filters>
-            <SubmitButton onClick={onSubmit}>Поиск</SubmitButton>
+            <SubmitButton
+                onClick={() => onSubmit(Object.getOwnPropertyNames(this.state).map((property) => this.state[property]))}>
+                Поиск
+            </SubmitButton>
         </Container>
     }
 
