@@ -14,6 +14,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    padding-left: 25px;
 `;
 
 const Header = styled.div`
@@ -41,7 +42,7 @@ const FilterVariantButton = styled.div`
 `;
 
 const SubmitButton = styled.button`
-    width: 100%;
+    width: calc(100vw - 50px);
     height: 40px;
 `;
 export default class FloatingSubmitMenu extends React.Component {

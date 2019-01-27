@@ -8,7 +8,8 @@ const Container = styled.div`
     height: 130px;
     padding: 10px;
     margin: 10px; 
-    background: ${props => props.imageUrl? `url(${props.imageUrl})` : 'none'});
+    border-radius: 10px;
+    background: ${props => props.imageUrl? `url(${props.imageUrl})` : 'none'};
 `;
 
 const TextBoundary = styled.div`
