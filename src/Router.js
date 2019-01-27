@@ -1,12 +1,13 @@
 import React from 'react';
+import axios from 'axios'
 import EventSearchPage from './pages/EventSearchPage';
 import EventPage, {StyledNoneLeftPage} from './pages/EventPage'
-import axios from 'axios'
+import Loader from './pages/components/Loader'
 
 const timeout = ms => new Promise(res => setTimeout(res, ms));
 
-const Loader = ({isLoading, children}) => {
-    return isLoading ? <div>Loading</div> : children
+const LoaderWrapper = ({isLoading, children}) => {
+    return isLoading ? <Loader />: children
 }
 
 export default class Router extends React.PureComponent {
@@ -84,15 +85,15 @@ export default class Router extends React.PureComponent {
     render() {
         switch (this.state.page) {
             case 'PAGE_1':
-                return <Loader isLoading={this.state.isLoadingConfig}>
+                return <LoaderWrapper isLoading={this.state.isLoadingConfig}>
                     <EventSearchPage
                         onSubmit={this.onSubmitForm}
                         categories = {this.state.availableCategories}
                         filters={this.state.availableFilters}
                     />
-                </Loader>
+                </LoaderWrapper>
             case 'PAGE_2':
-                return <Loader isLoading={this.state.isLoadingEvents}>
+                return <LoaderWrapper isLoading={this.state.isLoadingEvents}>
                 {
                     this.state.events.length > this.state.eventOffset
                     ?
@@ -104,7 +105,7 @@ export default class Router extends React.PureComponent {
                     <StyledNoneLeftPage />
                 }
 
-                </Loader>
+                </LoaderWrapper>
             default:
                 throw new Error('Something went wrong')
         }
