@@ -158,16 +158,15 @@ const PopupButton = styled.a`
     }
 `
 
-
 const ConfirmPopup = ({isActive, className, payUrl, togglePopup}) => <div className={className} onClick={togglePopup}>
     <div className="container" onClick={e => e.stopPropagation()}>
         <PopupTitle>
             Поделиться:
         </PopupTitle>
         <div className="icon-container">
-            <VkIcon href={`https://vk.com/share.php?url=${payUrl}`} target="_blank"/>
-            <FacebookIcon href={`https://www.facebook.com/sharer/sharer.php?u=${payUrl}`} target="_blank"/>
-            <TwitterIcon href={`https://twitter.com/intent/tweet?text=${payUrl}`}  target="_blank"/>
+            <VkIcon href={`https://vk.com/share.php?url=${encodeURIComponent(`Я иду на ${payUrl} Кто со мной?`)}`} target="_blank"/>
+            <FacebookIcon href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(payUrl)}`} target="_blank"/>
+            <TwitterIcon href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Я иду на ${payUrl} Кто со мной?`)}`}  target="_blank"/>
         </div>
 
         <PopupTitle>
@@ -248,7 +247,7 @@ class EventPage extends React.Component {
     
 
 const StyledEventPage = styled(EventPage)`
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 10px;
 
     ${StyledCard} {
         margin-bottom: 10px;
@@ -264,7 +263,6 @@ const NoneLeftPage = ({className}) => <div className={className}>
 
 
 export const StyledNoneLeftPage = styled(NoneLeftPage)`
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     padding: 30px;
 
     font-size: 2.5rem;
