@@ -82,6 +82,8 @@ export default class Router extends React.PureComponent {
         this.setState({...this.state, eventOffset: this.state.eventOffset+1})
     }
 
+    onBackToPage1 = () => this.setState({page: 'PAGE_1'});
+
     render() {
         switch (this.state.page) {
             case 'PAGE_1':
@@ -100,6 +102,7 @@ export default class Router extends React.PureComponent {
                     <EventPage
                         {...this.state.events[this.state.eventOffset]}
                         getNext = {this.getNextEvent}
+                        backToPage1 = {this.onBackToPage1}
                     />
                     :
                     <StyledNoneLeftPage />

@@ -216,7 +216,7 @@ const ButtonContainer = styled.div`
     justify-content: center;
 `
 
-const BackToSearchContainer = styled.button`
+const BackToSearchButton = styled.button`
     border: 2px solid #FF6B7E;
     background: transparent;
     border-radius: 8px;
@@ -242,7 +242,7 @@ class EventPage extends React.Component {
     closePopup = () => this.setState({isPopupActive: false});
 
     render() {
-        const {className, name, description, redirectUrl, price, imageUrl, getNext} = this.props
+        const {className, name, description, redirectUrl, price, imageUrl, getNext, backToPage1} = this.props
 
         return <div className={className}>
             <StyledCard 
@@ -260,7 +260,7 @@ class EventPage extends React.Component {
             />
             {description}
             <ButtonContainer>
-                <BackToSearchContainer>↜ Вернуться к поиску</BackToSearchContainer>
+                <BackToSearchButton onClick={backToPage1}>↜ Вернуться к поиску</BackToSearchButton>
             </ButtonContainer>
         </div>
     }
