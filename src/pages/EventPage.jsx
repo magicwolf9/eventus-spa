@@ -278,8 +278,12 @@ const StyledEventPage = styled(EventPage)`
 export default StyledEventPage;
 
 
-const NoneLeftPage = ({className}) => <div className={className}>
+const NoneLeftPage = ({className, backToPage1}) => <div className={className}>
     Мы больше не можем найти подходящие события :(
+
+    <ButtonContainer>
+        <BackToSearchButton onClick={backToPage1}>↜ Вернуться к поиску</BackToSearchButton>
+    </ButtonContainer>
 </div>
 
 

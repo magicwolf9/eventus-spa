@@ -82,7 +82,7 @@ export default class Router extends React.PureComponent {
         this.setState({...this.state, eventOffset: this.state.eventOffset+1})
     }
 
-    onBackToPage1 = () => this.setState({page: 'PAGE_1'});
+    onBackToPage1 = () => this.setState({page: 'PAGE_1', eventOffset: 0});
 
     render() {
         switch (this.state.page) {
@@ -105,7 +105,7 @@ export default class Router extends React.PureComponent {
                         backToPage1 = {this.onBackToPage1}
                     />
                     :
-                    <StyledNoneLeftPage />
+                    <StyledNoneLeftPage backToPage1={this.onBackToPage1} />
                 }
 
                 </LoaderWrapper>
