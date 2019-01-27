@@ -165,9 +165,9 @@ const ConfirmPopup = ({isActive, className, payUrl, togglePopup}) => <div classN
             Поделиться:
         </PopupTitle>
         <div className="icon-container">
-            <VkIcon href={`https://vk.com/share.php?url=${payUrl}`}/>
-            <FacebookIcon href={`https://www.facebook.com/sharer/sharer.php?u=${payUrl}`}/>
-            <TwitterIcon href={`https://twitter.com/intent/tweet?text=${payUrl}`} />
+            <VkIcon href={`https://vk.com/share.php?url=${payUrl}`} target="_blank"/>
+            <FacebookIcon href={`https://www.facebook.com/sharer/sharer.php?u=${payUrl}`} target="_blank"/>
+            <TwitterIcon href={`https://twitter.com/intent/tweet?text=${payUrl}`}  target="_blank"/>
         </div>
 
         <PopupTitle>
@@ -225,7 +225,7 @@ class EventPage extends React.Component {
     closePopup = () => this.setState({isPopupActive: false});
 
     render() {
-        const {className, name, description, redirectUrl, price, imageUrl} = this.props
+        const {className, name, description, redirectUrl, price, imageUrl, getNext} = this.props
 
         return <div className={className}>
             <StyledCard 
@@ -234,6 +234,7 @@ class EventPage extends React.Component {
                 redirectUrl = {redirectUrl}
                 imageUrl={imageUrl}
                 onGoToEvent = {this.showPopup}
+                onGoToNext = {getNext}
             />
             <StyledConfirmPopup 
                 isActive = {this.state.isPopupActive}
@@ -255,3 +256,17 @@ const StyledEventPage = styled(EventPage)`
 `
 
 export default StyledEventPage;
+
+
+const NoneLeftPage = ({className}) => <div className={className}>
+    Мы больше не можем найти подходящие события :(
+</div>
+
+
+export const StyledNoneLeftPage = styled(NoneLeftPage)`
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 30px;
+
+    font-size: 2.5rem;
+    font-weight: 600;
+`

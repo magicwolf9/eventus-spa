@@ -1,5 +1,6 @@
 import React from 'react';
-import EventPage from './pages/EventPage'
+import EventPage, {StyledNoneLeftPage} from './pages/EventPage'
+import axios from 'axios'
 
 const timeout = ms => new Promise(res => setTimeout(res, ms));
 
@@ -34,36 +35,15 @@ export default class Router extends React.PureComponent {
             eventOffset: 0,
             events: []
         }
+
+        this.axios = axios.create({
+            baseURL: 'http://eventus-api.herokuapp.com/eventus-api/api/v1/',
+        })
     }
 
-    fetchFilters = async () => {
-        await timeout(1000);
-        return [{
-            id: 1,
-            name: "date",
-            inputType: "DATE"
-        },
-        {
-            id: 2,
-            name: "price",
-            inputType: "PRICE"
-        }];
-    }
+    fetchFilters = () => this.axios.get('config/filters/').then(res => res.data)
 
-    fetchCategories = async () => {
-        await timeout(1000);
-        return [{
-            id: 1,
-            name: "value",
-            imageUrl: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
-        },
-        {
-            id: 1,
-            name: "value",
-            imageUrl: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
-        }];
-
-    }
+    fetchCategories = () => this.axios.get('config/categories/').then(res => res.data)
 
     componentWillMount(){
         Promise.all([
@@ -124,10 +104,17 @@ export default class Router extends React.PureComponent {
                 </Loader>
             case 'PAGE_2':
                 return <Loader isLoading={this.state.isLoadingEvents}>
+                {
+                    this.state.events.length > this.state.eventOffset 
+                    ? 
                     <EventPage 
                         {...this.state.events[this.state.eventOffset]}
                         getNext = {this.getNextEvent}
                     />
+                    :
+                    <StyledNoneLeftPage />
+                }
+                    
                 </Loader>
             default:
                 throw new Error('Something went wrong')
