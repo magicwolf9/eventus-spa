@@ -2,23 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-    width: 100%;
+    width: 92%;
     position: fixed;
     height: 40%;
-    bottom: 0;
+    bottom: 10px;
+    left: 4%;
     background: #fff;
-    border: solid 2px #afafaa;
+    border: 2px solid #FF6B7E;
     border-radius: 10px;
-    border-left: none;
-    border-right: none;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     padding-left: 25px;
+    box-sizing: border-box;
 `;
 
 const Header = styled.div`
-    
+    font-weight: 600;
+    color: #444;
 `;
 
 
@@ -30,22 +31,35 @@ const Filters = styled.div`
 const FilterVariantsGroup = styled.div`
     display: flex;
     white-space: nowrap;
+    margin-bottom: 5px;
 `;
 
 const FilterVariantButton = styled.div`
     height: 25px;
     border-radius: 8px;
-    border: solid 2px #000;
-    padding-left: 10px;
-    padding-right: 10px;
+    border: solid 2px #FF6B7E;
+    padding: 3px 15px 0 15px;
     margin: 2px 2px;
-    background: ${(props) => props.selected? '#000': '#fff'};
+    background: ${(props) => props.selected? '#FF6B7E': 'transparent'};
+    color: ${(props) => props.selected? '#FFF': '#FF6B7E'};
 `;
 
 const SubmitButton = styled.button`
-    width: calc(100vw - 50px);
     height: 40px;
+    margin-right: 25px;
+    outline: none;
+
+    background-color: #FF6B7E;
+    color: #eee;
+    border-radius: 8px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    &:hover, &:active, &:focus {
+        background-color: #E5445A;
+    }
 `;
+
 export default class FloatingSubmitMenu extends React.Component {
 
     constructor(props) {
