@@ -49,18 +49,9 @@ export default class Router extends React.PureComponent {
         )
     }
 
-    postSearchParams = async ({categories, filters}) => {
-        // this.axios.post('/events/search/', {
-        //     categories, filters
-        // })
-        return [{
-            name: 'Конно спортивный центр',
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis voluptates vel corporis rem consequuntur eaque dignissimos dolorum ratione quae inventore? Deleniti ipsa libero provident corrupti officiis aperiam perferendis reprehenderit obcaecati!",
-            redirectUrl: "google.com",
-            price: "1500p",
-            imageUrl: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
-        }]
-    }
+    postSearchParams = async ({categories, filters}) => this.axios.post('/events/search/', {
+        categories, filters
+    }).then(res => res.data)
 
     onSubmitForm = async (categories, filters) => {
         this.setState({
