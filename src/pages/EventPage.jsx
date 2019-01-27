@@ -50,11 +50,12 @@ const Price = styled.div`
 `
 
 const Img = styled.img`
-    max-height: 80px;
+    max-height: 180px;
     max-width: 90%;
 
     width: auto;
     height: auto;
+    border-radius: 4px;
 `
 
 const Card = ({className, title, price, redirectUrl, imageUrl, onGoToNext, onGoToEvent}) => <div className={className}>
@@ -218,7 +219,7 @@ const ButtonContainer = styled.div`
 
 const BackToSearchButton = styled.button`
     border: 2px solid #FF6B7E;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
     font-size: 1.1rem;
     font-weight: 500;
@@ -269,6 +270,7 @@ class EventPage extends React.Component {
 
 const StyledEventPage = styled(EventPage)`
     margin: 10px;
+    padding-bottom: 120px;
 
     ${StyledCard} {
         margin-bottom: 10px;
