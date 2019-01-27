@@ -28,7 +28,7 @@ export default class Router extends React.PureComponent {
         }
 
         this.axios = axios.create({
-            baseURL: 'http://eventus-api.herokuapp.com/eventus-api/api/v1/',
+            baseURL: 'https://eventus-api.herokuapp.com/eventus-api/api/v1/',
         })
     }
 
