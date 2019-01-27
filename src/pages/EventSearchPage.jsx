@@ -1,17 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import EventCategory from './components/EventCategory';
+import FloatingSubmitMenu from './components/FloatingSubmitMenu';
 
-const EventCategory = styled.div`
-    width: 100px;
-    height: 250px;
-    background: url(${props => props.imageUrl || 'none'});
+const EventCategoriesHolder = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 `;
-
-const SubmitComponent = styled.div`
-    width: 100%;
-    height: 400px;
-`;
-
 
 export default class EventSearchPage extends React.Component {
 
@@ -24,39 +21,44 @@ export default class EventSearchPage extends React.Component {
         }, {
             id: '2',
             name: 'test cat2'
-        }];
-        filters = [{
+        }, {
             id: '1',
-            name: 'filter1',
-            inputType: 'PRICE'
+            name: 'test cat1',
+            imageUrl: 'dd'
         }, {
             id: '2',
-            name: 'filter2',
-            inputType: 'PRICE'
+            name: 'test cat2'
+        }, {
+            id: '1',
+            name: 'test cat1',
+            imageUrl: 'dd'
+        }, {
+            id: '2',
+            name: 'test cat2 ggggggggggggggggggggggggggggggggggggggggggg'
+        }];
+        filters = [{
+            "group": "LOCATION",
+            "items": [{"id": 1, "name": "Москва"}, {"id": 2, "name": "Питер"}, {"id": 3, "name": "Другое"}]
+        }, {
+            "group": "DATE",
+            "items": [{"id": 1, "name": "Сегодня"}, {"id": 2, "name": "Завтра"}, {
+                "id": 3,
+                "name": "1 неделя"
+            }, {"id": 4, "name": "2 недели"}]
+        }, {
+            "group": "PRICE",
+            "items": [{"id": 1, "name": "до 500р"}, {"id": 2, "name": "до 1000р"}, {
+                "id": 3,
+                "name": "до 3000р"
+            }, {"id": 4, "name": "от 3000р"}]
         }];
         return <div>
-            {categories.map((category, ind) => {
-                return <EventCategory image={category.imageUrl} id={ind}>
-                    {category.id}
-                    {category.name}
-                    {category.imageUrl}
-                </EventCategory>
-            })}
-            <SubmitComponent>
-                {filters.map((filter, ind) => {
-                    switch (filter.inputType) {
-                        case 'PRICE':
-                            return <div key={ind}>PRICE. {filter.id} {filter.name}</div>
-                        case 'LOCATION':
-                            return <div key={ind}>LOCATION. {filter.id} {filter.name}</div>
-                        case 'DATE':
-                            return <div key={ind}>DATE. {filter.id} {filter.name}</div>
-                        default:
-                            return <input/>
-                    }
+            <EventCategoriesHolder>
+                {categories.map((category, ind) => {
+                    return <EventCategory category={category} id={ind}/>
                 })}
-                <button onClick={onSubmit}>Поиск</button>
-            </SubmitComponent>
+            </EventCategoriesHolder>
+            <FloatingSubmitMenu filters={filters} onSubmit={onSubmit}/>
         </div>
     }
 }
