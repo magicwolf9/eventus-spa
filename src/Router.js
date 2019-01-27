@@ -1,21 +1,13 @@
 import React from 'react';
+import EventSearchPage from './pages/EventSearchPage';
 import EventPage, {StyledNoneLeftPage} from './pages/EventPage'
 import axios from 'axios'
 
 const timeout = ms => new Promise(res => setTimeout(res, ms));
 
 const Loader = ({isLoading, children}) => {
-    return isLoading ? <div>Loading</div> : <React.Fragment>{children}</React.Fragment>
+    return isLoading ? <div>Loading</div> : children
 }
-
-const Page1 = ({onSubmit, filters, categories}) => <div>
-    <button onClick={onSubmit}>
-        Submit
-    </button>
-
-    {JSON.stringify(filters)}
-    {JSON.stringify(categories)}
-</div>
 
 export default class Router extends React.PureComponent {
     constructor(props) {
@@ -31,7 +23,7 @@ export default class Router extends React.PureComponent {
             
             filters: [],
             categories: [],
-            
+
             eventOffset: 0,
             events: []
         }
@@ -51,7 +43,6 @@ export default class Router extends React.PureComponent {
             this.fetchCategories()
         ]).then(([filters, categories]) =>
             this.setState({
-                ...this.state,
                 availableFilters: filters,
                 availableCategories: categories,
                 isLoadingConfig: false
@@ -72,7 +63,6 @@ export default class Router extends React.PureComponent {
 
     onSubmitForm = async ({categories, filters}) => {
         this.setState({
-            ...this.state,
             page: "PAGE_2",
             isLoadingEvents: true,
             categories,
@@ -82,7 +72,6 @@ export default class Router extends React.PureComponent {
         const events = await this.postSearchParams({categories, filters})
 
         this.setState({
-            ...this.state,
             isLoadingEvents: false,
             events
         })
@@ -96,7 +85,7 @@ export default class Router extends React.PureComponent {
         switch (this.state.page) {
             case 'PAGE_1':
                 return <Loader isLoading={this.state.isLoadingConfig}>
-                    <Page1 
+                    <EventSearchPage
                         onSubmit={this.onSubmitForm}
                         categories = {this.state.availableCategories}
                         filters={this.state.availableFilters}
@@ -105,16 +94,16 @@ export default class Router extends React.PureComponent {
             case 'PAGE_2':
                 return <Loader isLoading={this.state.isLoadingEvents}>
                 {
-                    this.state.events.length > this.state.eventOffset 
-                    ? 
-                    <EventPage 
+                    this.state.events.length > this.state.eventOffset
+                    ?
+                    <EventPage
                         {...this.state.events[this.state.eventOffset]}
                         getNext = {this.getNextEvent}
                     />
                     :
                     <StyledNoneLeftPage />
                 }
-                    
+
                 </Loader>
             default:
                 throw new Error('Something went wrong')
