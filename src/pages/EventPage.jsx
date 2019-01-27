@@ -164,9 +164,9 @@ const ConfirmPopup = ({isActive, className, payUrl, togglePopup}) => <div classN
             Поделиться:
         </PopupTitle>
         <div className="icon-container">
-            <VkIcon href={`https://vk.com/share.php?url=${encodeURIComponent(`Я иду на ${payUrl} Кто со мной?`)}`} target="_blank"/>
+            <VkIcon href={`https://vk.com/share.php?url=${encodeURIComponent(`Кто со мной? ${payUrl}`)}`} target="_blank"/>
             <FacebookIcon href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(payUrl)}`} target="_blank"/>
-            <TwitterIcon href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Я иду на ${payUrl} Кто со мной?`)}`}  target="_blank"/>
+            <TwitterIcon href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Кто со мной? ${payUrl}`)}`}  target="_blank"/>
         </div>
 
         <PopupTitle>
@@ -210,6 +210,24 @@ const StyledConfirmPopup = styled(ConfirmPopup)`
     }
 `;
 
+const ButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+`
+
+const BackToSearchContainer = styled.button`
+    border: 2px solid #FF6B7E;
+    background: transparent;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    position: fixed;
+    bottom: 20px;
+    padding: 0.5rem 3rem;
+    color: #555;
+`
+
 class EventPage extends React.Component {
     constructor(props) {
         super(props)
@@ -241,6 +259,9 @@ class EventPage extends React.Component {
                 togglePopup = {this.closePopup}
             />
             {description}
+            <ButtonContainer>
+                <BackToSearchContainer>↜ Вернуться к поиску</BackToSearchContainer>
+            </ButtonContainer>
         </div>
     }
 }
